@@ -1,0 +1,11 @@
+# Core GUI (usually built-in, but good to specify for completeness)
+tk
+
+# Packet crafting (optional, for advanced features and future expansion)
+scapy
+
+# Modbus protocol support and simulation (optional, recommended for labs)
+pymodbus
+
+# Typing extensions for Python compatibility
+typing-extensions

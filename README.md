@@ -54,12 +54,16 @@ This project provides a GUI-based Modbus TCP client tool written in Python. It i
 - `typing-extensions`
 
 **Quick Install:**
+
 #cmd/terminal
+
 pip install -r requirements.txt
 
 
 **Manual Install:**
+
 #cmd/terminal
+
 pip install tk scapy pymodbus typing-extensions
 
 **Usage**
@@ -80,8 +84,9 @@ pip install tk scapy pymodbus typing-extensions
 7. View response (hex and decoded) and analyze log.
 
 8. Export log if needed.
+   
 
-Example Packets and Their Effects
+## Example Packets and Their Effects
 
 1. Write Single Coil (ON):
    

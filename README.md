@@ -112,11 +112,16 @@ Contributing
 
 Folder Structure
     modbus-client/
+    
     │
     ├─ src/                # Python scripts (main GUI)
+    
     ├─ images/             # Place GUI screenshots here
+    
     ├─ requirements.txt    # Python dependencies
+    
     ├─ README.md           # This file
+    
     └─ LICENSE             # MIT License
 
 Acknowledgements

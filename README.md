@@ -44,6 +44,25 @@ This project provides a GUI-based Modbus TCP client tool written in Python. It i
 ---
 
 ## Installation
+Installation
+Prerequisites: Install Python 3.7 or higher. Ensure tkinter is available (it comes standard with most Python installations).
+Clone the Repository:
+bash
+Copy
+Edit
+git clone https://github.com/YourUser/modbus-packet-crafter.git
+cd modbus-packet-crafter
+Dependencies: Install required Python modules. For example, this project uses pymodbus for communication and packet handling. Run:
+bash
+Copy
+Edit
+python3 -m pip install -r requirements.txt
+If a requirements.txt is not provided, manually install:
+bash
+Copy
+Edit
+python3 -m pip install pymodbus
+Port Permissions: By default Modbus TCP uses port 502 (requires administrator/root on Unix). You can either run the client as an elevated user, or use a higher port (e.g. 1502) on both client and server for testing.
 
 ### **Requirements**
 
@@ -57,14 +76,14 @@ This project provides a GUI-based Modbus TCP client tool written in Python. It i
 
 #cmd/terminal
 
-pip install -r requirements.txt
+- `pip install -r requirements.txt`
 
 
 **Manual Install:**
 
 #cmd/terminal
 
-pip install tk scapy pymodbus typing-extensions
+- `pip install tk scapy pymodbus typing-extensions`
 
 **Usage**
 1. Start a test Modbus server (e.g., with pymodbus, ModbusPal, or other simulator).

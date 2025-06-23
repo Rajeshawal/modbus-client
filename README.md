@@ -43,47 +43,77 @@ This project provides a GUI-based Modbus TCP client tool written in Python. It i
 
 ---
 
-## Installation
 Installation
-Prerequisites: Install Python 3.7 or higher. Ensure tkinter is available (it comes standard with most Python installations).
-Clone the Repository:
-bash
+Prerequisites
+Python 3.7 or higher
+Make sure Python is installed on your system. Download from python.org.
+
+tkinter (Python's standard GUI library)
+
+Included with most Python distributions (Windows/macOS).
+
+On Linux, you may need to install it separately:
+
+sh
+Copy
+Edit
+sudo apt-get install python3-tk
+Internet access (for installing Python libraries via pip).
+
+Clone the Repository
+sh
 Copy
 Edit
 git clone https://github.com/YourUser/modbus-packet-crafter.git
 cd modbus-packet-crafter
-Dependencies: Install required Python modules. For example, this project uses pymodbus for communication and packet handling. Run:
-bash
+Dependencies
+This project uses the following Python modules and libraries:
+
+tkinter and related widgets (scrolledtext, filedialog, ttk, messagebox)
+
+socket (standard library for network connections)
+
+datetime (standard library)
+
+struct (standard library)
+
+scapy (for advanced/optional packet crafting)
+
+pymodbus (optional; for Modbus protocol handling and simulation)
+
+typing-extensions (for compatibility and typing improvements)
+
+Note:
+socket, datetime, and struct are part of Python's standard library and do not require installation.
+
+Quick Install (Recommended)
+If a requirements.txt file is provided, simply run:
+
+sh
 Copy
 Edit
-python3 -m pip install -r requirements.txt
-If a requirements.txt is not provided, manually install:
-bash
+pip install -r requirements.txt
+Manual Install
+If you want to install dependencies one by one, run:
+
+sh
 Copy
 Edit
-python3 -m pip install pymodbus
-Port Permissions: By default Modbus TCP uses port 502 (requires administrator/root on Unix). You can either run the client as an elevated user, or use a higher port (e.g. 1502) on both client and server for testing.
+pip install tk scapy pymodbus typing-extensions
+On Linux, if you receive errors about tkinter, first install it using your OS package manager:
 
-### **Requirements**
+sh
+Copy
+Edit
+sudo apt-get install python3-tk
+Port Permissions
+By default, Modbus TCP uses port 502.
 
-- Python **3.7+**
-- `tkinter` (usually included, but may need `sudo apt-get install python3-tk` on Linux)
-- `scapy`
-- `pymodbus` (optional, for server simulation)
-- `typing-extensions`
+On Unix/Linux systems, using ports below 1024 may require administrator or root privileges.
 
-**Quick Install:**
-
-#cmd/terminal
-
-- `pip install -r requirements.txt`
+For convenience, you can run the Modbus server/client on a higher, non-privileged port (e.g., 1502), which does not require admin rights.
 
 
-**Manual Install:**
-
-#cmd/terminal
-
-- `pip install tk scapy pymodbus typing-extensions`
 
 **Usage**
 1. Start a test Modbus server (e.g., with pymodbus, ModbusPal, or other simulator).

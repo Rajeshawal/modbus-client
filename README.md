@@ -19,186 +19,194 @@ This project provides a GUI-based Modbus TCP client tool written in Python. It i
 
 ## Screenshots
 
+*Main application window.*  
+![Screenshot1](images/screenshot1.png)
 
-*Main application window.*
+*Structured packet fields view.*  
+![Screenshot2](images/screenshot2.png)
 
-![Screenshot1](images/screenshot1.png)  
-
-
-
-
-*Structured packet fields view.*
-
-![Screenshot2](images/screenshot2.png)  
-
-
-
-
-*Malicious crafting options.*
-
-![Screenshot3](images/screenshot3.png)  
-
-
-
+*Malicious crafting options.*  
+![Screenshot3](images/screenshot3.png)
 
 ---
 
 ## Installation
-# Prerequisites
-Python 3.7 or higher
 
-Download and install from python.org.
+### Requirements
 
-tkinter (Python’s standard GUI library)
+- **Python** `3.7+`  
+- **tkinter**  
+  - *Windows/macOS:* Usually included.  
+  - *Linux:* Install with:  
+    ```sh
+    sudo apt-get install python3-tk
+    ```
 
-Windows/macOS: Usually included with Python.
+- **Internet access** (to install dependencies with `pip`)
 
-Linux: If missing, install with:
+### Clone the Repository
 
-sudo apt-get install python3-tk
-
-Internet access (for installing Python libraries with pip).
-
-Clone the Repository
-
+```sh
 git clone https://github.com/YourUser/modbus-packet-crafter.git
-
 cd modbus-packet-crafter
+```
 
-# Dependencies
+### Dependencies
 
 This project uses the following Python modules:
 
-tkinter (scrolledtext, filedialog, ttk, messagebox)
+- `tkinter` and widgets (`scrolledtext`, `filedialog`, `ttk`, `messagebox`)
+- Standard libraries: `socket`, `datetime`, `struct`
+- [`scapy`](https://scapy.readthedocs.io/) — for advanced packet crafting (optional)
+- [`pymodbus`](https://pymodbus.readthedocs.io/) — for Modbus protocol support and simulation (optional)
+- [`typing-extensions`](https://pypi.org/project/typing-extensions/) — for type hinting and compatibility
 
-socket, datetime, struct (all part of the Python Standard Library)
+> **Note:**  
+> The `socket`, `datetime`, and `struct` modules are standard with Python.  
+> `tkinter` is included on most platforms but may need manual installation on Linux.
 
-scapy (optional, for advanced packet crafting)
+### Quick Install
 
-pymodbus (optional, for Modbus protocol support and simulation)
-
-typing-extensions (for type hinting and compatibility)
-
-# Note:
-The socket, datetime, and struct modules are standard with Python and require no extra installation.
-
-# Quick Install (Recommended)
-If a requirements.txt file is included, run:
-
+```sh
 pip install -r requirements.txt
+```
 
-# Manual Install
+### Manual Install
 
-To install each dependency individually:
-
+```sh
 pip install tk scapy pymodbus typing-extensions
+```
 
-On Linux, if you get errors related to tkinter, install it using:
+On Linux, if you get errors related to `tkinter`, run:
 
+```sh
 sudo apt-get install python3-tk
+```
+
+---
 
 ## Port Permissions
 
-Modbus TCP typically uses port 502 (requires administrator/root privileges on Unix/Linux).
+Modbus TCP typically uses port `502`, which may require administrator/root privileges on Unix/Linux.
 
-For testing, you may use a higher port (e.g., 1502) for both the client and server, which does not require admin rights.
+For testing, you can use a higher port (e.g., `1502`) for both the client and server to avoid requiring admin access.
 
+---
 
+## Usage
 
-**Usage**
-1. Start a test Modbus server (e.g., with pymodbus, ModbusPal, or other simulator).
-
+1. Start a test Modbus server (e.g., using `pymodbus`, ModbusPal, or other simulator).
 2. Run the client:
-    #cmd/terminal
+    ```sh
     python src/modbus_client.py
+    ```
+3. Enter the server IP and port, click **Connect**.
+4. Craft your packet using **raw hex** or **structured fields**.
+5. *(Optional)*: Apply malicious crafting options or load a predefined packet.
+6. Click **Send Packet**.
+7. View the **response** (hex and decoded) and **analyze logs**.
+8. Use **Export Log** if needed.
 
-3. Enter the server IP and port, click Connect.
-
-4. Craft your packet using raw hex or structured fields.
-
-5. (Optional): Apply malicious crafting options or load a predefined packet.
-
-6. Click Send Packet.
-
-7. View response (hex and decoded) and analyze log.
-
-8. Export log if needed.
-   
+---
 
 ## Example Packets and Their Effects
 
-1. Write Single Coil (ON):
-   
-    Packet: 0001 0000 0006 01 05 0001 FF00
-   
-    Breakdown: Transaction=0x0001, Protocol=0x0000, Length=6, Unit=0x01, Function=0x05 (Write Coil), Address=0x0001, Value=0xFF00 (ON).
-    Effect: Turns coil #1 ON. On a real system, this could open a circuit breaker, start a motor, or activate a valve.
+### 1. Write Single Coil (ON)
 
+```
+Packet: 0001 0000 0006 01 05 0001 FF00
+```
 
-3. Write Single Coil (OFF):
-   
-    Packet: 0002 0000 0006 01 05 0001 0000
-   
-    Same as above but Value=0x0000, turns coil #1 OFF (deactivating the device).
+- **Breakdown:** Transaction=0x0001, Protocol=0x0000, Length=6, Unit=0x01, Function=0x05 (Write Coil), Address=0x0001, Value=0xFF00 (ON)  
+- **Effect:** Turns coil #1 **ON** (e.g., starts a motor or opens a valve)
 
-4. Write Holding Register:
-   
-    Packet: 0003 0000 0006 01 06 0002 000A
-   
-    Function 0x06, Register Address 2, Value 10. Changes a critical setpoint. For instance, setting a voltage or speed parameter. An attacker changing registers could destabilize processes
-    
+---
 
-5. Invalid Function Code:
-   
-    Packet: 0004 0000 0006 01 90 0001 0001
-   
-    Function=0x90 is not standard. The slave will respond with an exception: Function=0x90+0x80=0x110 (trimmed to 0x90 in one byte) and Exception Code=0x01 (Illegal Function)
-   
-    . This shows how malformed requests are rejected.
+### 2. Write Single Coil (OFF)
 
-6. Length Mismatch / Corrupted Header:
-   
-    Packet: 0005 0000 0007 01 05 0001 FF00 AA (Length=7 but only 6 bytes of data + an extra 0xAA).
-   
-    Effect: The server detects the framing error and ignores the packet
-    
-    . No response is given, simulating a dropped/ignored request.
+```
+Packet: 0002 0000 0006 01 05 0001 0000
+```
 
+- Turns coil #1 **OFF** (deactivates the device)
 
-For more examples or use the GUI’s Screen.
+---
 
+### 3. Write Holding Register
 
-Responsible Use and Disclaimer
+```
+Packet: 0003 0000 0006 01 06 0002 000A
+```
 
-    This tool is provided for educational and research purposes only. It should be used on systems you own or have permission to test. Unauthorized tampering with Modbus devices can cause physical damage or safety hazards. Users must follow ethical guidelines and all applicable laws. The developers assume no responsibility for misuse. Always test in isolated lab environments and inform stakeholders before conducting experiments. By using this software, you agree to use it ethically and responsibly.
+- **Function 0x06**, Register Address `0x0002`, Value `10`.  
+- Changes a control setpoint, e.g., voltage or speed
 
+---
 
-License
-    
-    This project is licensed under the MIT License.
+### 4. Invalid Function Code
 
-Contributing
-   
-    Pull requests and bug reports welcome. Open an issue or submit a PR!
+```
+Packet: 0004 0000 0006 01 90 0001 0001
+```
 
+- Function code `0x90` is invalid. The slave will respond with:
+  - Function: `0x90 + 0x80 = 0x110`
+  - Exception Code: `0x01` (Illegal Function)
 
-Folder Structure
-    
-    modbus-client/
-    
-    │
-    ├─ src/                # Python scripts (main GUI)
-    
-    ├─ images/             # Place GUI screenshots here
-    
-    ├─ requirements.txt    # Python dependencies
-    
-    ├─ README.md           # This file
-    
-    └─ LICENSE             # MIT License
+---
 
-Acknowledgements
-    
-    Modbus protocol: modbus.org
-    
-    Educational security testing resources
+### 5. Length Mismatch / Corrupted Header
+
+```
+Packet: 0005 0000 0007 01 05 0001 FF00 AA
+```
+
+- Declared length = 7, but actual data does not match.  
+- **Effect:** Packet is ignored, simulating dropped request or desync
+
+---
+
+*You can load all these examples from the GUI presets or manually enter them.*
+
+---
+
+## Responsible Use and Disclaimer
+
+> ⚠️ **This tool is for educational and research purposes only.**  
+> Use only on systems you **own or are authorized to test**.  
+> Unauthorized use can cause **physical damage**, **safety hazards**, or **legal consequences**.  
+> Always test in isolated environments.  
+> By using this software, you agree to act **ethically and responsibly**.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## Contributing
+
+Pull requests and bug reports are welcome.  
+Feel free to open an issue or submit a PR!
+
+---
+
+## Folder Structure
+
+```
+modbus-client/
+├── src/                # Python scripts (main GUI)
+├── images/             # GUI screenshots
+├── requirements.txt    # Python dependencies
+├── README.md           # Project documentation
+└── LICENSE             # MIT License
+```
+
+---
+
+## Acknowledgements
+
+- [Modbus.org](https://modbus.org/) — official protocol documentation  
+- Educational security testing communities and open-source contributors

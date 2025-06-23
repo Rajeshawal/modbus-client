@@ -19,20 +19,25 @@ This project provides a GUI-based Modbus TCP client tool written in Python. It i
 
 ## Screenshots
 
-*Add actual screenshots to your `images/` folder and update file names below.*
 
-![Screenshot1](images/screenshot1.png)  
 *Main application window.*
 
+![Screenshot1](images/screenshot1.png)  
 
 
-![Screenshot2](images/screenshot2.png)  
+
+
 *Structured packet fields view.*
 
+![Screenshot2](images/screenshot2.png)  
 
+
+
+
+*Malicious crafting options.*
 
 ![Screenshot3](images/screenshot3.png)  
-*Malicious crafting options.*
+
 
 
 

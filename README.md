@@ -41,7 +41,6 @@ This project provides a GUI-based Modbus TCP client tool written in Python. It i
     ```sh
     sudo apt-get install python3-tk
     ```
-
 - **Internet access** (to install dependencies with `pip`)
 
 ### Clone the Repository
@@ -166,7 +165,83 @@ Packet: 0005 0000 0007 01 05 0001 FF00 AA
 
 ---
 
-*You can load all these examples from the GUI presets or manually enter them.*
+## Creating an Executable
+
+You can convert this Modbus Client into a standalone executable so users can run it without needing Python or pip installed.
+
+### 🔧 For Windows
+
+1. **Install PyInstaller** (if not already installed):
+
+    ```sh
+    pip install pyinstaller
+    ```
+
+2. **Navigate to the `src/` directory**:
+
+    ```sh
+    cd src
+    ```
+
+3. **Build the .exe file**:
+
+    ```sh
+    pyinstaller --onefile --windowed modbus_client.py
+    ```
+
+4. Output will be in the `dist/` folder:
+
+    ```
+    dist/modbus_client.exe
+    ```
+
+### 🐧 For Linux
+
+1. **Install PyInstaller**:
+
+    ```sh
+    pip install pyinstaller
+    ```
+
+2. **Navigate to `src/`**:
+
+    ```sh
+    cd src
+    ```
+
+3. **Build the executable**:
+
+    ```sh
+    pyinstaller --onefile modbus_client.py
+    ```
+
+4. Output will be in:
+
+    ```
+    dist/modbus_client
+    ```
+
+5. Make it executable:
+
+    ```sh
+    chmod +x dist/modbus_client
+    ```
+
+### 📦 What to Share
+
+- Only share the `modbus_client.exe` (Windows) or `modbus_client` (Linux)
+- Python is **not required** to run the executable
+
+> ⚠️ Build the executable on the **same OS** where it will run. Cross-compilation is not supported.
+
+---
+
+## 🔽 Download Executable
+
+- 🪟 [Download for Windows (.exe)](https://github.com/YourUsername/modbus-client/releases/download/v1.0.0/modbus_client.exe)
+- 🐧 [Download for Linux](https://github.com/YourUsername/modbus-client/releases/download/v1.0.0/modbus_client)
+
+> ✅ No Python installation required. Just download, run, and connect to your Modbus server.
 
 ---
 

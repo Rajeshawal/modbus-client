@@ -238,8 +238,8 @@ You can convert this Modbus Client into a standalone executable so users can run
 
 ## 🔽 Download Executable
 
-- 🪟 [Download for Windows (.exe)](https://github.com/YourUsername/modbus-client/releases/download/v1.0.0/modbus_client.exe)
-- 🐧 [Download for Linux](https://github.com/YourUsername/modbus-client/releases/download/v1.0.0/modbus_client)
+- 🪟 [Download for Windows (.exe)](https://github.com/Rajeshawal/modbus-client/releases/download/v1.0.0/MobusTCP_Client.exe)
+- 🐧 [Download for Linux](https://github.com/Rajeshawal/modbus-client/releases/download/v1.0.0/ModbusTCP-Client)
 
 > ✅ No Python installation required. Just download, run, and connect to your Modbus server.
 

@@ -1,6 +1,6 @@
 # Modbus Client (Educational Modbus TCP Packet Crafter)
 
-This project provides a GUI-based Modbus TCP client tool written in Python. It is designed **for educational and research use only**. The tool allows users to craft, send, and analyze both standard and malicious Modbus TCP packets to better understand protocol behavior and security.
+This project provides a GUI-based Modbus TCP client tool written in Python. It is designed **for educational and research use** to understand Modbus protocol. The tool allows users to craft, send, and analyze both standard and malicious Modbus TCP packets to better understand protocol behavior and security.
 
 ---
 
